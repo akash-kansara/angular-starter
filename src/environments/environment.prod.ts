@@ -8,5 +8,6 @@
 export const environment = {
   production: true,
   serverUrl: 'https://app.fakejson.com/q',
-  serverToken: 'SdsY94SDitlq8IYY2-W1mw'
+  serverToken: 'SdsY94SDitlq8IYY2-W1mw',
+  apiUrl: 'http://localhost:3000'
 };
