@@ -1,7 +1,13 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+// Overwrite to remove default padding on all container classes
+* {
+  box-sizing: border-box;
+}
 
+// Import & set font
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 body {
   font-family: 'Open Sans', sans-serif;
 }
+*/

@@ -1,44 +1,34 @@
-<div class="sign-in-wrapper">
-  <form [formGroup]="frm">
-    <!-- Username input -->
-    <input type="text" formControlName="username" placeholder="Your username">
+<div class="container-fluid">
+  <div class="container col-sm-4 form-signin mr-auto sign-in-form align-middle">
+    <form [formGroup]="form">
 
-    <!-- Username validation message -->
-    <div
-      class="input-errors"
-      *ngIf="(frm.get('username').invalid && frm.get('username').touched) || showInputErrors"
-    >
-      <div *ngIf="frm.get('username').hasError('required')">
-        Please enter your username
+      <input type="text" placeholder="Username" required class="row form-control" formControlName="username">
+      <div class="sign-in-tip" *ngIf="(username.invalid && username.touched) || showInputErrors">
+        <div *ngIf="username.hasError('required')">
+          <p>Please enter your username</p>
+        </div>
+        <div *ngIf="username.hasError('minlength')">
+          <p>Minimum length is 4</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Password input -->
-    <input type="password" formControlName="password" placeholder="Your password">
-
-    <!-- Password validation message -->
-    <div
-      class="input-errors"
-      *ngIf="(frm.get('password').invalid && frm.get('password').touched) || showInputErrors"
-    >
-      <div *ngIf="frm.get('password').hasError('required')">
-        Please enter your password
+      <input type="password" placeholder="Password" class="row form-control" formControlName="password">
+      <div class="sign-in-tip" *ngIf="(password.invalid && password.touched) || showInputErrors">
+        <div *ngIf="password.hasError('required')">
+          <p>Please enter your password</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Sign-in error message -->
-    <div class="sign-in-error" *ngIf="hasFailed">
-      Invalid username and password.
-    </div>
+      <div class="" *ngIf="hasFailed">
+        Invalid username and password.
+      </div>
 
-    <!-- Sing-in button -->
-    <button (click)="doSignIn()" [disabled]="isBusy">
-      <ng-template [ngIf]="!isBusy">Sign in</ng-template>
-      <ng-template [ngIf]="isBusy">Signing in, please wait...</ng-template>
-    </button>
+      <button class="row btn btn-primary btn-block form-control" [disabled]="isBusy" (click)="doSignIn()">
+        <ng-template [ngIf]="!isBusy">Sign in</ng-template>
+        <ng-template [ngIf]="isBusy">Signing in, please wait...</ng-template>
+      </button>
 
-    <!-- Tip -->
-    <p class="tip">You can sign in with username "demo" and password "demo".</p>
-
-  </form>
+      <p class="sign-in-tip">You can sign in with username "demo" and password "demo".</p>
+    </form>
+  </div>
 </div>

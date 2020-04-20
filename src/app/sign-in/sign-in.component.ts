@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../auth.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,9 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  public frm: FormGroup;
+  public form: FormGroup;
+  public username: FormControl;
+  public password: FormControl;
 
   public isBusy = false;
   public hasFailed = false;
@@ -20,35 +23,27 @@ export class SignInComponent implements OnInit {
   constructor(
     private api: ApiService,
     private auth: AuthService,
-    private fb: FormBuilder,
     private router: Router
-  ) {
-    this.frm = fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
+  ) { }
 
   ngOnInit() {
+    this.createFormControl();
+    this.createForm();
   }
 
   public doSignIn() {
 
-    // Make sure form values are valid
-    if (this.frm.invalid) {
+    if (this.form.invalid) {
       this.showInputErrors = true;
       return;
     }
 
-    // Reset status
     this.isBusy = true;
     this.hasFailed = false;
 
-    // Grab values from form
-    const username = this.frm.get('username').value;
-    const password = this.frm.get('password').value;
+    const username = this.username.value;
+    const password = this.password.value;
 
-    // Submit request to API
     this.api
       .signIn(username, password)
       .subscribe(
@@ -64,6 +59,18 @@ export class SignInComponent implements OnInit {
           this.hasFailed = true;
         }
       );
+  }
+
+  private createFormControl() {
+    this.username = new FormControl('', [Validators.required, Validators.minLength(4)]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  }
+
+  private createForm() {
+    this.form = new FormGroup({
+      username: this.username,
+      password: this.password
+    });
   }
 
 }

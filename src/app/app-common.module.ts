@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { SessionService } from './session.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthService } from './auth.service';
+import { TitleBarComponent } from './title-bar/title-bar.component';
 
 let IMPORT = {
   MOD: [
@@ -30,6 +31,7 @@ let IMPORT = {
 
 let APP_MOD = {
   DIR_COMP: [
+    TitleBarComponent,
     TodoListHeaderComponent,
     TodoListComponent,
     TodoListItemComponent,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Todo } from './entity/todo';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { SessionService } from './session.service';
 import {
   HttpClient,
@@ -35,7 +35,7 @@ export class ApiService {
       .get<Todo[]>(API_URL + '/todos', options)
       .pipe(
         map(response => {
-          const todos = <any[]> response;
+          const todos = response as [];
           return todos.map((todo) => new Todo(todo));
         })
       );
@@ -83,12 +83,12 @@ export class ApiService {
 
   private handleError(error: HttpErrorResponse | any) {
     console.error('ApiService::handleError', error);
-    return Observable.throw(error);
+    return throwError(error);
   }
 
   private getRequestOptions() {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + this.session.accessToken
+      Authorization: 'Bearer ' + this.session.accessToken
     });
     return { headers };
   }
