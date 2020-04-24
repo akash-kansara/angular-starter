@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:prod": "npm run build&serve -s dist/angular-starter",
     "build": "ng build",
     "json-server": "node json-server",
     "test": "ng test",
